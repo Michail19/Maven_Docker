@@ -4,15 +4,15 @@ services:
   maven:
     build:
       context: .  # Путь к Dockerfile
-      dockerfile: Dockerfile
     container_name: maven_container
     volumes:
-      - .:/app  # Привязка текущей директории проекта к контейнеру
+      - .:/usr/src/app  # Привязка текущей директории проекта к контейнеру
       - maven-cache:/root/.m2  # Кэш Maven для ускорения сборки
-    working_dir: /app  # Рабочая директория внутри контейнера
+    working_dir: /usr/src/app  # Рабочая директория внутри контейнера
     stdin_open: true
     tty: true
 
 volumes:
   maven-cache:
     driver: local
+
