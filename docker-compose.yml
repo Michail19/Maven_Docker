@@ -3,14 +3,13 @@ version: '3.8'
 services:
   maven:
     build:
-      context: . # Путь к Dockerfile
-      dockerfile: Dockerfile # Укажите имя вашего Dockerfile, если оно отличается от стандартного
+      context: .  # Путь к Dockerfile
+      dockerfile: Dockerfile  # Укажите имя вашего Dockerfile, если оно отличается от стандартного
     container_name: maven_container
     volumes:
       - .:/app # Привязка текущей директории проекта к контейнеру
       - maven-cache:/root/.m2 # Кэш Maven для ускорения сборки
     working_dir: /app # Рабочая директория внутри контейнера
-    command: mvn clean install # Команда для запуска Maven
     stdin_open: true
     tty: true
 
