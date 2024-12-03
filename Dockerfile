@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 COPY . .
 
 # Запуск Maven для сборки
-RUN mvn clean install
+RUN mvn clean package
 
 # Используем легковесный образ OpenJDK для запуска приложения
 FROM eclipse-temurin:17-jdk
@@ -12,4 +12,4 @@ WORKDIR /app
 COPY --from=build /usr/src/app/target/*.jar app.jar
 
 # Указываем команду для запуска приложения
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "/app/app.jar"]
