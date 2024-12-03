@@ -1,11 +1,10 @@
-# Используем официальный образ Maven
-FROM maven:3.9.4-eclipse-temurin-17
-
-# Указываем рабочую директорию
+FROM maven:3.8.7-openjdk-17 AS build
 WORKDIR /usr/src/app
-
-# Копируем проект в контейнер
 COPY . .
+RUN mvn clean package
 
-# Выполняем команду сборки при запуске контейнера
-CMD ["mvn", "clean", "package"]
+FROM openjdk:17-jdk-slim
+WORKDIR /usr/app
+COPY --from=build /usr/src/app/target/my-maven-project-1.0-SNAPSHOT.jar app.jar
+EXPOSE 8080
+CMD ["java", "-jar", "app.jar"]
